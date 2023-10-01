@@ -1,5 +1,5 @@
 resource "azurerm_service_plan" "myresumes-plan" {
-  # depends_on          = [azurerm_resource_group.cloud_resume_rg]
+  depends_on          = [azurerm_resource_group.resume-rg]
   name                = "myresumes-service-plan"
   location            = azurerm_resource_group.resume-rg.location
   resource_group_name = azurerm_resource_group.resume-rg.name
