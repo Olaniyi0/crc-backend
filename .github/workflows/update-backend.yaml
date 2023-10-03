@@ -59,7 +59,7 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           zip -r function_app.zip ./httpTrigger/
-          terraform apply -replace='azurerm_storage_blob.web-files["index.html"]' -auto-approve -input=false
+          terraform apply -replace=azurerm_storage_blob.myresumes-funcapp-blob -auto-approve -input=false
       
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply if backend code was not modified
