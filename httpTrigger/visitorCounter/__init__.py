@@ -10,6 +10,7 @@ def main(req: func.HttpRequest, messageJSON) -> func.HttpResponse:
     table_service = TableClient.from_connection_string(conn_str=connection_string, table_name=table_name)
 
     try:
+        # Tries to get number of visitors if already exist
         num_of_visitors = int(table_service.get_entity(partition_key="visitorsCount", row_key="1")["NumberOfVisitors"]) + 1
     except Exception as e:
         data = {

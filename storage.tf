@@ -19,7 +19,7 @@ resource "azurerm_storage_blob" "myresumes-funcapp-blob" {
   storage_account_name   = azurerm_storage_account.function-storage.name
   storage_container_name = azurerm_storage_container.function-container.name
   type                   = "Block"
-  source                 = "./function_app.zip"
+  source                 = "./httpTrigger/function_app.zip"
 }
 
 data "azurerm_storage_account_sas" "myresumes-funcapp-sas" {
