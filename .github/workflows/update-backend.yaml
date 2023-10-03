@@ -15,6 +15,10 @@ jobs:
 
     # Initialize required environment variables
     env: 
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
 
     # Steps to deploy resources
@@ -51,14 +55,14 @@ jobs:
       #   run: terraform plan -input=false
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
-      - name: Terraform Apply if web files was modified
+      - name: Terraform Apply if backend code was modified
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           zip -r function_app.zip ./httpTrigger/
           terraform apply -replace='azurerm_storage_blob.web-files["index.html"]' -auto-approve -input=false
       
       # On push to "main", build or change infrastructure according to Terraform configuration files
-      - name: Terraform Apply if web files was not modified
+      - name: Terraform Apply if backend code was not modified
         if: steps.changed-files.outputs.any_changed == 'false'
         run: terraform apply -auto-approve -input=false
 
