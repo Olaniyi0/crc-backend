@@ -56,11 +56,8 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
 
-      # Generates an execution plan for Terraform
-      # - name: Terraform Plan
-      #   run: terraform plan -input=false
 
-      # On push to "main", build or change infrastructure according to Terraform configuration files
+      # Test the backend code
       - name: Test backend code if
         id: test
         if: steps.changed-files.outputs.any_changed == 'true'
@@ -68,7 +65,7 @@ jobs:
           cd httpTrigger && pip install -r requirements.txt
           python3 test_funcapp.py
 
-      # Deploy if test was successful
+      # Deploy infrastructure if test was successful
       - name: Terraform Apply if test was successful
         if: steps.test.outcome == 'success'
         run: |
@@ -78,6 +75,6 @@ jobs:
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply if backend code was not modified
         if: steps.changed-files.outputs.any_changed == 'false'
-        run: terraform apply -replace=azurerm_storage_blob.myresumes-funcapp-blob -auto-approve -input=false
+        run: terraform apply -replace -auto-approve -input=false
 
  
