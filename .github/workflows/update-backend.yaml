@@ -36,6 +36,12 @@ jobs:
         with:
           files: httpTrigger
 
+      # Install python for consistent environment
+      - name: Set up python
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+
       # Install the latest version of Terraform CLI ''
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2 
