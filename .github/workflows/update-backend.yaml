@@ -72,7 +72,7 @@ jobs:
       - name: Terraform Apply if test was successful
         if: steps.test.outcome == 'success'
         run: |
-          zip -r function_app.zip . -x test_funcapp.py && cd ..
+          cd httpTrigger && zip -r function_app.zip . -x test_funcapp.py && cd ..
           terraform apply -replace=azurerm_storage_blob.myresumes-funcapp-blob -auto-approve -input=false
       
       # On push to "main", build or change infrastructure according to Terraform configuration files
