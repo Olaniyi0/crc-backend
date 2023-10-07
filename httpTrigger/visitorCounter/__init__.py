@@ -30,3 +30,4 @@ def main(req: func.HttpRequest, messageJSON) -> func.HttpResponse:
         return func.HttpResponse(f"{num_of_visitors}")
         
   
+#chan

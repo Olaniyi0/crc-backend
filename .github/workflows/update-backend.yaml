@@ -36,6 +36,12 @@ jobs:
         with:
           files: httpTrigger
 
+      # Install python for consistent environment
+      - name: Set up python
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+
       # Install the latest version of Terraform CLI ''
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2 
@@ -55,11 +61,18 @@ jobs:
       #   run: terraform plan -input=false
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
-      - name: Terraform Apply if backend code was modified
+      - name: Test backend code if modified
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          cd httpTrigger && zip -r function_app.zip . && cd ..
-          terraform apply -replace=azurerm_storage_blob.myresumes-funcapp-blob -auto-approve -input=false
+          cd httpTrigger && pip install -r requirements.txt
+          python3 test_funcapp.py
+
+      # Deploy if test was successful
+      - name: Terraform Apply if test was successful
+        if: ${{ success() }}
+        run: echo "Success"
+      # cd httpTrigger && zip -r function_app.zip . && cd ..
+      # terraform apply -replace=azurerm_storage_blob.myresumes-funcapp-blob -auto-approve -input=false
       
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply if backend code was not modified
