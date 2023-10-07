@@ -62,6 +62,7 @@ jobs:
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Test backend code if
+        id: test
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           cd httpTrigger && pip install -r requirements.txt
@@ -69,7 +70,7 @@ jobs:
 
       # Deploy if test was successful
       - name: Terraform Apply if test was successful
-        if: ${{ success() }}
+        if: steps.test.outcome == 'success'
         run: |
           echo "boo"
       # zip -r function_app.zip . && cd ..
