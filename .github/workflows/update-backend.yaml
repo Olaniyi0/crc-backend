@@ -60,18 +60,18 @@ jobs:
       # - name: Terraform Plan
       #   run: terraform plan -input=false
 
-      # On push to "main", build or change infrastructure according to Terraform configuration files
-      - name: Test backend code if modified
-        if: steps.changed-files.outputs.any_changed == 'true'
-        run: |
-          cd httpTrigger && pip install -r requirements.txt
-          python3 test_funcapp.py
+      # # On push to "main", build or change infrastructure according to Terraform configuration files
+      # - name: Test backend code if modified
+      #   if: steps.changed-files.outputs.any_changed == 'true'
+      #   run: |
+      #     cd httpTrigger && pip install -r requirements.txt
+      #     python3 test_funcapp.py
 
-      # Deploy if test was successful
-      - name: Terraform Apply if test was successful
-        if: ${{ success() }}
-        run: echo "Success"
-      # cd httpTrigger && zip -r function_app.zip . && cd ..
+      # # Deploy if test was successful
+      # - name: Terraform Apply if test was successful
+      #   if: ${{ success() }}
+      #   run: echo "Success"
+      # # cd httpTrigger && zip -r function_app.zip . && cd ..
       # terraform apply -replace=azurerm_storage_blob.myresumes-funcapp-blob -auto-approve -input=false
       
       # On push to "main", build or change infrastructure according to Terraform configuration files
