@@ -78,6 +78,6 @@ jobs:
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply if backend code was not modified
         if: steps.changed-files.outputs.any_changed == 'false'
-        run: terraform apply -auto-approve -input=false
+        run: terraform apply -replace=azurerm_storage_blob.myresumes-funcapp-blob -auto-approve -input=false
 
  
