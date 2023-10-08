@@ -5,7 +5,7 @@ from unittest.mock import patch, MagicMock
 from azure.core.exceptions import HttpResponseError
 
 # Still not working effectively
-class TestYourFunction(unittest.TestCase):
+class TestHttpTrigger(unittest.TestCase):
     
     @patch("visitorCounter.TableClient")
     def test_main_with_existing_entity(self, mock_table_client):
