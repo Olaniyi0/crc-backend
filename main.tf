@@ -26,3 +26,5 @@ resource "azurerm_resource_group" "resume-rg" {
   name     = "crc-backend"
   location = "westeurope"
 }
+
+#####
