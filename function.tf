@@ -27,7 +27,7 @@ resource "azurerm_linux_function_app" "myresumes-linux-funcapp" {
     application_insights_connection_string = azurerm_application_insights.myresumes-app-insight.connection_string
     application_insights_key               = azurerm_application_insights.myresumes-app-insight.instrumentation_key
     cors {
-      allowed_origins = ["https://portal.azure.com", "https://test.myresumes.live"]
+      allowed_origins = ["https://portal.azure.com", "https://www.cloudresume.me"]
     }
     application_stack {
       python_version = "3.10"
